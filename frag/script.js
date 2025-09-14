@@ -77,6 +77,21 @@ export const link = (txt, pageName, style = new Style()) => {
 export const input = (placeholder, style = new Style()) => {
   return `<input placeholder="${placeholder}" ${renderStyle(style)}/>`;
 };
+export const title = (level, text, style = new Style()) => {
+    return `<h${level} ${renderStyle(style)}>${text}</h${level}>`;
+}
+export const video = (src, style = new Style()) => {
+    return `<video controls src="${src}" ${renderStyle(style)}></video>`;
+}
+export const audio = (src, style = new Style()) => {
+    return `<audio controls src="${src}" ${renderStyle(style)}></audio>`;
+}
+export const list = (text, style = new Style()) => {
+    return `<li ${renderStyle(style)}>${text}</li>`;
+}
+export const image = (src,style=new Style())=>{
+  return `<img src=${src} ${renderStyle(style)} />`
+}
 
 export const breakLine = () => `<br/>`;
 
@@ -114,7 +129,11 @@ export const components = {
   input,
   breakLine,
   div,
-  link
+  link,
+  audio,
+  video,
+  image,
+  list
 };
 
 export { Style };
