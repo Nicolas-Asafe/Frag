@@ -1,8 +1,18 @@
-import { newPage } from "./frag/script.js";
-import ButtonStandart from "./components/button.js";
+import { newPage, renderPage, link, text, breakLine } from "./frag/script.js";
 
-let com = [
-    ButtonStandart,
-];
+// Página Home
+newPage("home", [
+  text("Bem-vindo à Página Home!"),
+  breakLine(),
+  link("Ir para Sobre", "about")
+], "Home");
 
-newPage(com, "Frag site", "pt-br");
+// Página Sobre
+newPage("about", [
+  text("Esta é a página Sobre."),
+  breakLine(),
+  link("Voltar para Home", "home")
+], "Sobre");
+
+// Renderiza página inicial
+renderPage("home");

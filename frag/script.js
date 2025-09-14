@@ -1,7 +1,9 @@
+/* ---------- Páginas ---------- */
+const pages = new Map();
+
 /* ---------- Style ---------- */
 class Style {
   constructor(prop = {
-    /* Layout básico */
     display: "block",
     position: "static",
     top: "auto",
@@ -10,13 +12,9 @@ class Style {
     bottom: "auto",
     z_index: "0",
     overflow: "visible",
-
-    /* Cores e fundo */
     background_color: "transparent",
     color: "black",
     opacity: "1",
-
-    /* Texto */
     font_size: "16px",
     font_family: "Arial, sans-serif",
     font_weight: "normal",
@@ -24,30 +22,20 @@ class Style {
     text_decoration: "none",
     line_height: "normal",
     letter_spacing: "normal",
-
-    /* Espaçamento */
     margin: "0",
     padding: "0",
-
-    /* Bordas */
     border: "none",
     border_radius: "0",
     box_shadow: "none",
-
-    /* Tamanho */
     width: "auto",
     height: "auto",
     max_width: "none",
     max_height: "none",
     min_width: "0",
     min_height: "0",
-
-    /* Cursor e interação */
     cursor: "default",
     pointer_events: "auto",
     visibility: "visible",
-
-    /* Transição / animação */
     transition: "none",
     transform: "none"
   }) {
@@ -58,56 +46,66 @@ class Style {
 /* ---------- renderStyle ---------- */
 function renderStyle(style = new Style()) {
   let styleInAll = "";
-  for (let propStyle in style.prop) {
-    const ps = propStyle.replace(/_/g, '-'); // background_color -> background-color
-    const styleCom = `${ps}: ${style.prop[propStyle]}; `;
-    styleInAll += styleCom;
+  const s = style instanceof Style ? style.prop : style;
+  for (let propStyle in s) {
+    const ps = propStyle.replace(/_/g, '-');
+    styleInAll += `${ps}: ${s[propStyle]}; `;
   }
   return `style="${styleInAll}"`;
 }
 
-/* ---------- Components individuais ---------- */
-export const text = (text, style = new Style()) => {
-  console.log(text, style);
-  return `<span ${renderStyle(style)}>${text}</span>`;
+/* ---------- renderAttrs ---------- */
+function renderAttrs(attrs = {}) {
+  return Object.entries(attrs)
+    .map(([k, v]) => `${k}="${v}"`)
+    .join(" ");
+}
+
+/* ---------- Components ---------- */
+export const text = (txt, style = new Style()) => {
+  return `<span ${renderStyle(style)}>${txt}</span>`;
 };
 
-export const button = (text, style = new Style()) => { 
-  return `<button ${renderStyle(style)}>${text}</button>`;
+export const button = (txt, { style = new Style(), attrs = {} } = {}) => {
+  return `<button ${renderStyle(style)} ${renderAttrs(attrs)}>${txt}</button>`;
+};
+
+export const link = (txt, pageName, style = new Style()) => {
+  return `<a href="#" ${renderStyle(style)} onclick="renderPage('${pageName}'); return false;">${txt}</a>`;
 };
 
 export const input = (placeholder, style = new Style()) => {
   return `<input placeholder="${placeholder}" ${renderStyle(style)}/>`;
 };
 
-export const breakLine = () => {
-  return `<br/>`;
-};
+export const breakLine = () => `<br/>`;
 
-export const div = (style = new Style(), childrens = []) => {
-  return `
-    <div ${renderStyle(style)}>
-      ${childrens.map(c => c).join(" ")}
-    </div>
-  `;
+export const div = ({ style = new Style(), attrs = {}, children = [] } = {}) => {
+  const content = Array.isArray(children) ? children.join(" ") : children;
+  return `<div ${renderStyle(style)} ${renderAttrs(attrs)}>${content}</div>`;
 };
 
 /* ---------- newPage ---------- */
-export const newPage = (Components = [], title = "Frag", lan = "en") => {
-  document.getElementById("pages_root").innerHTML += `
-    <!DOCTYPE html>
-    <html lang="${lan}">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${title}</title>
-    </head>
-    <body>
-      ${Components.map(c => c).join('')}
-    </body>
-    </html>
-  `;
+export const newPage = (name, Components = [], title = "Frag") => {
+  pages.set(name, {
+    title,
+    Components,
+    bodyContent: Components.map(c => c).join('')
+  });
 };
+
+/* ---------- renderPage ---------- */
+export const renderPage = (name) => {
+  const page = pages.get(name);
+  const root = document.getElementById("pages_root");
+  if (page && root) {
+    root.innerHTML = page.bodyContent;
+    document.title = page.title;
+  }
+};
+
+// expõe globalmente para os links funcionarem
+window.renderPage = renderPage;
 
 /* ---------- Objeto agrupado ---------- */
 export const components = {
@@ -115,7 +113,8 @@ export const components = {
   button,
   input,
   breakLine,
-  div
+  div,
+  link
 };
 
 /* ---------- Classe exportada ---------- */
