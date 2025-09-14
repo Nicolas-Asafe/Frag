@@ -37,6 +37,24 @@ const components = {
   },
   list:(text, style = {}) => {
     return `<li ${renderStyle(style)}>${text}</li>`;
+  },
+  footer:(text, style = {}) => {
+    return `<footer ${renderStyle(style)}>${text}</footer>`;
+  },
+  progress:(value, max, style = {}) => {
+    return `<progress value="${value}" max="${max}" ${renderStyle(style)}></progress>`;
+  },
+  hr: () => {
+    return `<hr />`;
+  },
+  pre: (text, style = {}) => {
+    return `<pre>${text}</pre>`
+  },
+  nav: (type, list, style = {}) => {
+    return `<${type} ${renderStyle(style)}>${list}</${type}>`
+  },
+  i: (className, style = {}) => {
+    return `<i class="${className}" ${renderStyle(style)}></i>`;
   }
 };
 

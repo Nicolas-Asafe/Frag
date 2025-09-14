@@ -61,6 +61,36 @@ const listStyle = new Style({
   font_family: "Arial"
 })
 
+const footerStyle = new Style({
+  color: "blue",
+  font_size: "20px"
+})
+
+const progressStyle = new Style({
+  position: "absolute"
+})
+
+const navStyle = new Style({
+  position: "absolute",
+  margin_top: "75px"
+})
+
+const fruitStyle = new Style({
+  color: "blue"
+})
+
+const iStyle = new Style({
+  color: "red",
+  font_size: "80px"
+})
+
+const fruitsItems = [
+  components.list("Banana", fruitStyle),
+  components.list("Maçã", fruitStyle),
+  components.list("Pera", fruitStyle),
+  components.list("Uva", fruitStyle)
+];
+
 const formComponents = [
     components.div(formContainerStyle, [
         components.text("Formulário de Contato", new Style({
@@ -78,7 +108,13 @@ const formComponents = [
         components.link("https://www.google.com.br", "vá para o google, e teste o novo componente de link", linkStyle),
         components.video("videos/konoha.mp4", videoStyle),
         components.audio("audios/sigmaboy.mp3", audioStyle),
-        components.list("Novo componente de lista", listStyle)
+        components.list("Novo componente de lista", listStyle),
+        components.footer("Pagina feita por NK", footerStyle),
+        components.progress(90, 100, progressStyle),
+        components.nav("ol", fruitsItems.join(""), navStyle),
+        components.hr(),
+        components.pre("olá, este texto é legal"),
+        components.i("fa-brands fa-apple", iStyle)
     ])
 ];
 
