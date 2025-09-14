@@ -1,27 +1,4 @@
-
-const components = {
-  text: (text, style = {}) => {
-    console.log(text, style);
-    return `<span ${renderStyle(style)} >${text}</span>`;
-  },
-  button: (text, style = {}) => { 
-    return `<button ${renderStyle(style)} >${text}</button>`;
-  },
-  input: (placeholder, style = {}) => {
-    return `<input placeholder="${placeholder}" ${renderStyle(style)}/>`;
-  },
-  breakLine: () => {
-    return `<br/>`;
-  },
-  div:(style={},childrens=[]) =>{
-    return `
-    <div ${renderStyle(style)}>
-     ${childrens.map(c=>c).join(" ")}
-    </div>
-    `
-  }
-};
-
+/* ---------- Style ---------- */
 class Style {
   constructor(prop = {
     /* Layout básico */
@@ -73,13 +50,13 @@ class Style {
     /* Transição / animação */
     transition: "none",
     transform: "none"
-
   }) {
     this.prop = prop;
   }
 }
 
-function renderStyle(style = {}) {
+/* ---------- renderStyle ---------- */
+function renderStyle(style = new Style()) {
   let styleInAll = "";
   for (let propStyle in style.prop) {
     const ps = propStyle.replace(/_/g, '-'); // background_color -> background-color
@@ -89,7 +66,34 @@ function renderStyle(style = {}) {
   return `style="${styleInAll}"`;
 }
 
-const newPage = (Components = [], title = "Frag", lan = "en") => {
+/* ---------- Components individuais ---------- */
+export const text = (text, style = new Style()) => {
+  console.log(text, style);
+  return `<span ${renderStyle(style)}>${text}</span>`;
+};
+
+export const button = (text, style = new Style()) => { 
+  return `<button ${renderStyle(style)}>${text}</button>`;
+};
+
+export const input = (placeholder, style = new Style()) => {
+  return `<input placeholder="${placeholder}" ${renderStyle(style)}/>`;
+};
+
+export const breakLine = () => {
+  return `<br/>`;
+};
+
+export const div = (style = new Style(), childrens = []) => {
+  return `
+    <div ${renderStyle(style)}>
+      ${childrens.map(c => c).join(" ")}
+    </div>
+  `;
+};
+
+/* ---------- newPage ---------- */
+export const newPage = (Components = [], title = "Frag", lan = "en") => {
   document.getElementById("pages_root").innerHTML += `
     <!DOCTYPE html>
     <html lang="${lan}">
@@ -103,6 +107,16 @@ const newPage = (Components = [], title = "Frag", lan = "en") => {
     </body>
     </html>
   `;
-}
+};
 
-export { components, newPage, Style };
+/* ---------- Objeto agrupado ---------- */
+export const components = {
+  text,
+  button,
+  input,
+  breakLine,
+  div
+};
+
+/* ---------- Classe exportada ---------- */
+export { Style };
