@@ -1,16 +1,8 @@
-import { newPage, text, Style } from "./script.js";
+import { newPage } from "./frag/script.js";
+import ButtonStandart from "./components/button.js";
 
-
-let com = [];
-
-try{
-
-    com=[
-      text("hello world!")
-    ]
-
-}catch(err){
-    console.log(err)
-}
+let com = [
+    ButtonStandart,
+];
 
 newPage(com, "Frag site", "pt-br");
