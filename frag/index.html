@@ -1,4 +1,21 @@
 <html>
+    <style>
+        #pages_root{
+            animation: 2s ease appearPageRoot;
+        }
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        @keyframes appearPageRoot {
+            from{
+                opacity: 0;
+            }to{
+                opacity: 1;
+            }
+        }
+    </style>
     <div id="pages_root" >
         <script src="../app.js" type="module"></script>
     </div>
