@@ -22,6 +22,21 @@ const components = {
   },
   image:(src, style = {}) => {
     return `<img src="${src}" ${renderStyle(style)} />`;
+  },
+  title:(level, text, style = {}) => {
+    return `<h${level} ${renderStyle(style)}>${text}</h${level}>`;
+  },
+  link:(href, text, style = {}) => {
+    return `<a href="${href}" ${renderStyle(style)}>${text}</a>`;
+  },
+  video:(src, style = {}) => {
+    return `<video controls src="${src}" ${renderStyle(style)}></video>`;
+  },
+  audio:(src, style = {}) => {
+    return `<audio controls src="${src}" ${renderStyle(style)}></audio>`;
+  },
+  list:(text, style = {}) => {
+    return `<li ${renderStyle(style)}>${text}</li>`;
   }
 };
 
