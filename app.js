@@ -31,6 +31,13 @@ const formContainerStyle = new Style({
     background_color: "#f9f9f9"
 });
 
+const imgStyle = new Style({
+  width: "50px",
+  height: "50px",
+  border: "1px solid red",
+  border_radius: "10px"
+});
+
 const formComponents = [
     components.div(formContainerStyle, [
         components.text("Formulário de Contato", new Style({
@@ -42,7 +49,8 @@ const formComponents = [
         components.input("Nome", inputStyle),
         components.input("Email", inputStyle),
         components.input("Senha", inputStyle),
-        components.button("Enviar", buttonStyle)
+        components.button("Enviar", buttonStyle),
+        components.image("images/images.jpeg", imgStyle)
     ])
 ];
 

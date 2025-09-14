@@ -19,6 +19,9 @@ const components = {
      ${childrens.map(c=>c).join(" ")}
     </div>
     `
+  },
+  image:(src, style = {}) => {
+    return `<img src="${src}" ${renderStyle(style)} />`;
   }
 };
 
