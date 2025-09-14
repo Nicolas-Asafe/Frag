@@ -117,5 +117,4 @@ export const components = {
   link
 };
 
-/* ---------- Classe exportada ---------- */
 export { Style };
