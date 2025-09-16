@@ -1,12 +1,13 @@
 import { newPage, components, Style } from "./script.js";
 
 const inputStyle = new Style({
-    padding: "10px",
+    padding: "12px",
     border: "1px solid #ccc",
     border_radius: "5px",
     margin: "5px 0",
     width: "100%",
-    font_size: "16px"
+    font_size: "16px",
+    transition: "0.2s"
 });
 
 const buttonStyle = new Style({
@@ -32,15 +33,20 @@ const formContainerStyle = new Style({
 });
 
 const imgStyle = new Style({
-  width: "50px",
-  height: "50px",
-  border: "1px solid red",
-  border_radius: "10px"
+  width: "60px",
+  height: "60px",
+  border_radius: "50%",
+  display: "block",
+  margin: "10px auto",
+  box_shadow: "0 2px 6px rgba(0,0,0,0.2)"
 });
 
 const titleStyle = new Style({
-  color: "red",
-  font_family: "Arial"
+  color: "#2c3e50",
+  font_family: "Arial",
+  font_weight: "bold",
+  text_align: "center",
+  margin_bottom: "20px"
 });
 
 const linkStyle = new Style({
@@ -62,12 +68,15 @@ const listStyle = new Style({
 })
 
 const footerStyle = new Style({
-  color: "blue",
-  font_size: "20px"
+  color: "#2980b9",
+  font_size: "14px",
+  text_align: "center",
+  margin_top: "20px"
 })
 
 const progressStyle = new Style({
-  position: "absolute"
+  width: "100%",
+  margin: "10px 0"
 })
 
 const navStyle = new Style({
@@ -76,12 +85,27 @@ const navStyle = new Style({
 })
 
 const fruitStyle = new Style({
-  color: "blue"
+  color: "#34495e",
+  font_size: "18px",
+  margin: "5px 0"
 })
 
 const iStyle = new Style({
   color: "red",
-  font_size: "80px"
+  font_size: "60px",
+  display: "block",
+  text_align: "center",
+  margin: "15px 0"
+})
+
+const formStyle = new Style({
+  position: "absolute",
+  display: "flex"
+})
+
+const labelMomNumberStyle = new Style({
+  position: "absolute",
+  color: "red"
 })
 
 const fruitsItems = [
@@ -89,6 +113,13 @@ const fruitsItems = [
   components.list("Maçã", fruitStyle),
   components.list("Pera", fruitStyle),
   components.list("Uva", fruitStyle)
+];
+
+const inputsItems = [
+  components.input("text", "maeInput", "Numero da sua mãe", inputStyle),
+  components.input("text", "tiaInput", "Numero da sua tia", inputStyle),
+  components.input("text", "paiInput", "Numero do seu pai", inputStyle),
+  components.input("submit", "Enviar", buttonStyle)
 ];
 
 const formComponents = [
@@ -99,9 +130,9 @@ const formComponents = [
             text_align: "center",
             margin_bottom: "20px"
         })),
-        components.input("Nome", inputStyle),
-        components.input("Email", inputStyle),
-        components.input("Senha", inputStyle),
+        components.input("text", "OneName", "Nome", inputStyle),
+        components.input("email", "OneEmail", "Email", inputStyle),
+        components.input("password", "OnePassword", "Senha", inputStyle),
         components.button("Enviar", buttonStyle),
         components.image("images/images.jpeg", imgStyle),
         components.title(6, "olá mundo, novo componente", titleStyle),
@@ -114,7 +145,9 @@ const formComponents = [
         components.nav("ol", fruitsItems.join(""), navStyle),
         components.hr(),
         components.pre("olá, este texto é legal"),
-        components.i("fa-brands fa-apple", iStyle)
+        components.i("fa-brands fa-apple", iStyle),
+        components.form("#", inputsItems.join(""), formStyle),
+        components.label("maeInput", "Mom Number", labelMomNumberStyle)
     ])
 ];
 

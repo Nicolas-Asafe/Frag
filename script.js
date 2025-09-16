@@ -1,4 +1,3 @@
-
 const components = {
   text: (text, style = {}) => {
     console.log(text, style);
@@ -7,8 +6,8 @@ const components = {
   button: (text, style = {}) => { 
     return `<button ${renderStyle(style)} >${text}</button>`;
   },
-  input: (placeholder, style = {}) => {
-    return `<input placeholder="${placeholder}" ${renderStyle(style)}/>`;
+  input: (type, id, placeholder, style = {}) => {
+    return `<input type="${type}" id="${id}" placeholder="${placeholder}" ${renderStyle(style)}/>`;
   },
   breakLine: () => {
     return `<br/>`;
@@ -55,6 +54,12 @@ const components = {
   },
   i: (className, style = {}) => {
     return `<i class="${className}" ${renderStyle(style)}></i>`;
+  },
+  form: (action, inputs, style = {}) => {
+    return `<form action="${action}" ${renderStyle(style)}>${inputs}</form>`
+  },
+  label: (forId, name, style = {}) => {
+    return `<label for="${forId}" ${renderStyle(style)}>${name}</label>`
   }
 };
 
